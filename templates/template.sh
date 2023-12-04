@@ -19,6 +19,47 @@ function print_with_space {
     done
 }
 
+# 最小公倍数を計算
+function calc_lcm {
+    local n_list=("$@")
+    local lcm=${n_list[0]}
+
+    for i in "${n_list[@]:1}"; do
+        calc_gcd ${lcm} ${i}
+        gcd=$?
+        lcm=$((lcm * i / gcd))
+    done
+
+    return $lcm
+}
+
+# 2つの数の最大公約数を計算
+function calc_gcd {
+    local num1=$1
+    local num2=$2
+
+    while [ $num2 -ne 0 ]; do
+        local remainder=$((num1 % num2))
+        num1=$num2
+        num2=$remainder
+    done
+
+    return $num1
+}
+
+# 配列の最大公約数を計算
+function calc_array_gcd {
+    local n_list=("$@")
+    local gcd=${n_list[0]}
+
+    for i in "${n_list[@]:1}"; do
+        calc_gcd $gcd $i
+        gcd=$?
+    done
+
+    return $gcd
+}
+
 function solution1 {
     # -----------
     #    設定
