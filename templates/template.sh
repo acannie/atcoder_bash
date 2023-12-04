@@ -28,6 +28,24 @@ function solution1 {
     #    入力
     # -----------
 
+    # read S
+    # read N
+    # read H W
+    # declare -a S_LIST
+    # for ((i=0; i<H; i++)); do
+    #     read S
+    #     S_LIST+=("$S")
+    # done
+    # read -ra N_LIST
+    # declare -A HW_LIST
+    # for ((i=0; i<H; i++)); do
+    #     declare -a N_LIST
+    #     read -ra N_LIST
+    #     for ((j=0; j<W; j++)); do
+    #         HW_LIST[$i,$j]=${N_LIST[j]}
+    #     done
+    # done
+
     # -----------
     #    計算
     # -----------
