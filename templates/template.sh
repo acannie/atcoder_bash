@@ -86,6 +86,16 @@ function chmax {
     return 1
 }
 
+# 再帰処理
+function recurcive {
+    i=$1
+    if [ $i -eq 0 ]; then
+        return 0
+    fi
+    recurcive $((i - 1))
+    return $?
+}
+
 function solution1 {
     # -----------
     #    設定
