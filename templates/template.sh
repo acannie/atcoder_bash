@@ -60,6 +60,32 @@ function calc_array_gcd {
     return $gcd
 }
 
+# DP （最小化問題）用
+function chmin {
+    local -n dp=$1
+    local i=$2
+    local candidate=$3
+
+    if ((dp[i] > candidate)); then
+        dp[i]=$candidate
+        return 0
+    fi
+    return 1
+}
+
+# DP （最大化問題）用
+function chmax {
+    local -n dp=$1
+    local i=$2
+    local candidate=$3
+
+    if ((dp[i] < candidate)); then
+        dp[i]=$candidate
+        return 0
+    fi
+    return 1
+}
+
 function solution1 {
     # -----------
     #    設定
