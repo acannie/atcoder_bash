@@ -26,21 +26,6 @@ function replace_question_index {
     sed -i "s/$old_string/$new_string/g" $file_path
 }
 
-# 単語の単数形または複数形を返す
-function get_singular_or_plural {
-    # 引数
-    n=$1
-    word=$2
-
-    if [ $n -lt 1 ]; then
-        echo ""
-    fi
-    if [ $n -eq 1 ]; then
-        echo "a ${word}"
-    fi
-    echo "${n} ${word}s"
-}
-
 # 作成したファイルの概要を表示する
 function print_created_files_info_summary {
     # 引数
@@ -49,13 +34,21 @@ function print_created_files_info_summary {
 
     # 作成数情報
     text=""
-    singular_or_plural=$(get_singular_or_plural $submissions_n "submission file")
-    text+=$singular_or_plural
+    if [ $submissions_n -eq 1 ]; then
+        text+="a submission file"
+    elif [ $submissions_n -lt 1 ]; then
+        text+="$submissions_n submission files"
+    fi
+
     if [ ${submissions_n} -gt 0 ] && [ ${tests_n} -gt 0 ]; then
         text+=" and "
     fi
-    singular_or_plural=$(get_singular_or_plural $tests_n "test file")
-    text+=$singular_or_plural
+
+    if [ $tests_n -eq 1 ]; then
+        text+="a test file"
+    elif [ $tests_n -lt 1 ]; then
+        text+="$tests_n test files"
+    fi
 
     # 「作成された」
     if [ $((submissions_n + tests_n)) -eq 1 ]; then
@@ -67,7 +60,7 @@ function print_created_files_info_summary {
 
     # 作成されなかった場合
     if [ ${submissions_n} -eq 0 ] && [ ${tests_n} -eq 0 ]; then
-        text = "No files were created."
+        text="No files were created."
     fi
 
     echo "$text"
